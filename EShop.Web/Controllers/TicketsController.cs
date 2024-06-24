@@ -64,7 +64,7 @@ namespace EShop.Web.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         [Authorize]
         public IActionResult Create([Bind("Id,ConcertId,Price,Rating")] Ticket product)
         {
@@ -98,7 +98,7 @@ namespace EShop.Web.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         [Authorize]
         public ActionResult Edit(Guid id, [Bind("Id,ConcertId,Price,Rating")] Ticket product)
         {
@@ -135,7 +135,7 @@ namespace EShop.Web.Controllers
 
         // POST: Tickets/Delete/5
         [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         [Authorize]
         public IActionResult DeleteConfirmed(Guid id)
         {
