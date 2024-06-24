@@ -1,0 +1,64 @@
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: eshop-pvc
+  namespace: eshop-app
+  labels:
+    app: database
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: eshop-statefulset
+  namespace: eshop-app
+spec:
+  serviceName: db
+  selector:
+    matchLabels:
+      app: database
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: database
+        namespace: eshop-app
+    spec:
+      containers:
+        - name: postgres-container
+          image: postgres:latest
+          envFrom:
+            - configMapRef:
+                name: app-config
+          env:
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: eshop-secret
+                  key: password
+          ports:
+            - containerPort: 5432
+          volumeMounts:
+            - name: data
+              mountPath: /var/lib/postgresql/data
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: eshop-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: db
+  namespace: eshop-app
+spec:
+  selector:
+    app: database
+  ports:
+    - protocol: TCP
+      port: 5432

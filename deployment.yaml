@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: eshop-deployment
+  namespace: eshop-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: eshop
+  template:
+    metadata:
+      labels:
+        name: eshop
+    spec:
+      containers:
+        - name: eshop-container
+          image: milavelkova/eshopapplication:latest
+          imagePullPolicy: Always
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+          ports:
+            - containerPort: 8080
+          envFrom:
+            - configMapRef:
+                name: app-config
+          env:
+            - name: ASPNETCORE_ENVIRONMENT
+              value: Development
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: eshop-secret
+                  key: password
