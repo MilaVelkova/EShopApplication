@@ -57,7 +57,7 @@ namespace Movie_App.Web.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public IActionResult Create([Bind("Id,ConcertName,ConcertDescription,ConcertImage,Rating")] Concert movie)
         {
             if (ModelState.IsValid)
@@ -89,7 +89,7 @@ namespace Movie_App.Web.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public IActionResult Edit(Guid id, [Bind("Id,ConcertName,ConcertDescription,ConcertImage,Rating")] Concert movie)
         {
             if (id != movie.Id)
@@ -131,7 +131,7 @@ namespace Movie_App.Web.Controllers
 
         // POST: Products/Delete/5
         [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public IActionResult DeleteConfirmed(Guid id)
         {
             _concertService.DeleteConcert(id);
