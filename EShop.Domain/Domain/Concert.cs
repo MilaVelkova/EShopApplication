@@ -4,7 +4,7 @@ namespace EShop.Domain.Domain
 {
     public class Concert : BaseEntity
     {
-        [Required]
+        //[Required]
         public string ConcertName { get; set; }
         [Required]
         public string ConcertDescription { get; set; }
